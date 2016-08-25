@@ -7,7 +7,7 @@ import com.ank.service.impl.IntegerPoolServiceImpl;
 public class Main {
 
 	public static void main(String[] args) {
-		PoolService<IntegerValue> poolService = IntegerPoolServiceImpl.init(1000);
+		PoolService<IntegerValue> poolService = IntegerPoolServiceImpl.init(7);
 		IntegerValue connection1 = poolService.getConnection();
 		IntegerValue connection2 = poolService.getConnection();
 		IntegerValue connection3 = poolService.getConnection();
@@ -24,6 +24,8 @@ public class Main {
 		System.out.println("Return Connection 3 " + poolService.returnConnection(new IntegerValue(3)));
 		System.out.println("Return Connection 4 " + poolService.returnConnection(new IntegerValue(4)));
 		System.out.println("Return Connection 5 " + poolService.returnConnection(new IntegerValue(5)));
+		System.out.println("Got Connection " +poolService.getConnection());
+		System.out.println("Got Connection " +poolService.getConnection());
 		System.out.println("Got Connection " +poolService.getConnection());
 		System.out.println("Got Connection " +poolService.getConnection());
 		System.out.println("Got Connection " +poolService.getConnection());

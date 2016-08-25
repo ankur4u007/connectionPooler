@@ -6,7 +6,7 @@ public interface NumberConnection<T, K> {
 	
 	K getValue();
 	
-	NumberConnection<T,K> getNext();
+	NumberConnection<T,K> getNext(boolean limit);
 	
 	void setNext(NumberConnection<T,K> connection);
 	

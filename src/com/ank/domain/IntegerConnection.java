@@ -23,8 +23,8 @@ public class IntegerConnection implements NumberConnection<IntegerConnection, Va
 	}
 
 	@Override
-	public NumberConnection<IntegerConnection, Value<IntegerValue>> getNext() {
-		if(next != null) {
+	public NumberConnection<IntegerConnection, Value<IntegerValue>> getNext(boolean limit) {
+		if(next != null || limit) {
 			return next;
 		} else {
 			return getNewConnection();

@@ -4,17 +4,24 @@ public class Pool<T,K> {
 
 	private NumberConnection<T, Value<K>> connection;
 	private Integer maxSize;
+	private Integer currentSize;
 	
 	public Pool(NumberConnection<T, Value<K>> connection, Integer maxSize) {
 		this.connection = connection;
 		this.maxSize = maxSize;
+		if(connection != null) {
+			currentSize = 1;
+		}
 	}
 
 	public Value<K> getConnectionValue(){
-		
-		NumberConnection<T, Value<K>>  newConnection = connection.getNext();
+		if(currentSize > maxSize) {
+			return null;
+		}
+		NumberConnection<T, Value<K>>  newConnection = connection.getNext(false);
 		Value<K> oldConnectionValue = connection.getValue();
 		this.connection = newConnection;
+		currentSize++;
 		return oldConnectionValue;
 	}
 	
@@ -36,10 +43,11 @@ public class Pool<T,K> {
 						this.connection = newPrevConnection;
 					}
 					toReturn = true;
+					currentSize --;
 					break;
 				} else if (connection.getValue().isLessThan(connectionValue.getValue())) {
 					prevConnection = this.connection;
-					this.connection = this.connection.getNext();
+					this.connection = this.connection.getNext(true);
 				} else if (connection.getValue().isEqualTo(connectionValue.getValue())) {
 					toReturn = false;
 					this.connection = firstConnection;

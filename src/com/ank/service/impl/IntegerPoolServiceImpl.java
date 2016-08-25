@@ -22,7 +22,12 @@ public class IntegerPoolServiceImpl implements PoolService<IntegerValue> {
 	}
 	
 	public IntegerValue getConnection(){
-		return connectionPool.getConnectionValue().getValue();
+		 Value<IntegerValue> value = connectionPool.getConnectionValue();
+		 if(value != null) {
+			 return value.getValue();
+		 } else {
+			 throw new RuntimeException("Max Connection Pool Size Limit Reached");
+		 }
 	}
 	
 	public boolean returnConnection(IntegerValue connectionValue){
